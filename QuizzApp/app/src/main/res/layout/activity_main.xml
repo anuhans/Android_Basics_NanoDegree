@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context="com.example.rishabhgoyal.quizzapp.MainActivity"
+    android:orientation="vertical">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:hint="Name"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/name_field" />
+    <TextView
+        android:text="Q1. Which process can be affected by other processes executing in the system?"
+        style="@style/Text"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <RadioButton
+        style="@style/Radio"
+        android:text="a) cooperating process"
+        android:id="@+id/answer1"/>
+    <RadioButton
+        style="@style/Radio"
+        android:text="b) child process" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="c) parent process" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="d) init process"
+        android:layout_marginBottom="16dp"/>
+    </RadioGroup>
+    <TextView
+        android:text="Q2. When several processes access the same data concurrently and the outcome of the execution depends on the particular order in which the access takes place, is called"
+        style="@style/Text"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <RadioButton
+        style="@style/Radio"
+        android:text="a) dynamic condition" />
+    <RadioButton
+        android:id="@+id/answer2"
+        style="@style/Radio"
+        android:text="b) race condition" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="c) essential condition" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="d) critical condition"
+        android:layout_marginBottom="24dp"/>
+    </RadioGroup>
+    <TextView
+        android:text="Q3. If a process is executing in its critical section, then no other processes can be executing in their critical section. This condition is called"
+        style="@style/Text"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <RadioButton
+        style="@style/Radio"
+        android:text="a) mutual exclusion"
+        android:id="@+id/answer3"/>
+
+    <RadioButton
+        style="@style/Radio"
+        android:text="b) critical exclusion" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="c) synchronous exclusion"
+        android:paddingLeft="24dp"/>
+    <RadioButton
+        style="@style/Radio"
+        android:text="d) asynchronous exclusion"
+        android:layout_marginBottom="24dp"/>
+    </RadioGroup>
+    <TextView
+        android:text="Q4. Which one of the following is a synchronization tool?"
+        style="@style/Text"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <RadioButton
+        style="@style/Radio"
+        android:text="a) thread" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="b) pipe" />
+    <RadioButton
+        style="@style/Radio"
+        android:text="c) semaphore"
+        android:id="@+id/answer4"/>
+    <RadioButton
+        style="@style/Radio"
+        android:text="d) socket"
+        android:layout_marginBottom="24dp"/>
+    </RadioGroup>
+    <TextView
+        style="@style/Text"
+        android:text="Q5. Which of the Following are necessary conditions for the solution to synchroniztion problems"
+        />
+    <CheckBox
+        style="@style/Radio"
+        android:text="a) mutual exclusion"
+        android:id="@+id/check1"/>
+    <CheckBox
+        style="@style/Radio"
+        android:text="b) progress"
+        android:id="@+id/check2" />
+    <CheckBox
+        style="@style/Radio"
+        android:text="c) peterson solution"/>
+    <CheckBox
+        style="@style/Radio"
+        android:text="d ) none of the above"
+        android:layout_marginBottom="24dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:onClick="Marks"
+        />
+
+
+
+</LinearLayout>
+    </ScrollView>
