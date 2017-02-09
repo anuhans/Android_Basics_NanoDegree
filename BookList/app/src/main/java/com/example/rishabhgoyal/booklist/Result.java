@@ -19,25 +19,7 @@ public class Result {
         mPagecount=desc;
         mRating=Rating;
     }
-/**Setter methods*/
-    public void setmAuthour(String authour) {
-        mAuthour=authour;
-    }
 
-    public void setmRating(String mRating) {
-        this.mRating = mRating;
-    }
-
-    public void setmTitle(String title){
-        mTitle=title;
-    }
-    public void setmPublisher(String pub){
-        mPublisher=pub;
-    }
-
-    public void setmPagecount(String page) {
-        this.mPagecount = page;
-    }
 
     /**Getter methods*/
     public String getmAuthour() {

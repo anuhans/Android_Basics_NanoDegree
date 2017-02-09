@@ -86,7 +86,8 @@ public class FetchData extends AsyncTask<String, Void, ArrayList<Result>> {
             InputStream inputStream = url.getInputStream();
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
-                // Nothing to do.
+                // Nothing to display
+
                 return null;
 
             }

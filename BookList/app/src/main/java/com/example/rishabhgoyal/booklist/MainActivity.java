@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button search = (Button) findViewById(R.id.search);
         final int internet = 1;
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
@@ -34,57 +34,81 @@ public class MainActivity extends AppCompatActivity {
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                        this, new String[]{Manifest.permission.INTERNET},
-                        internet);
-            } else {
+
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, new String[]{Manifest.permission.INTERNET},
+                    internet);
+        } else {
+            if (networkInfo != null && networkInfo.isConnected()) {
+
 
                 search.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText search1 = (EditText) findViewById(R.id.search_text);
-                        String searchString = search1.getText().toString();
-                        FetchData fetch = new FetchData();
-                        AsyncTask<String, Void, ArrayList<Result>> getData = fetch.execute(searchString);
-                        try {
-                            ListView lv = (ListView) findViewById(R.id.list);
-                            lv.setEmptyView(findViewById(R.id.empty_text));
-                            String[] authors = new String[getData.get().size()];
-                            for (int i = 0; i < getData.get().size(); i++) {
-                                authors[i] = "Name: " + String.valueOf(getData.get().get(i).getmTitle()) + "\n" +
-                                        "Author: " + String.valueOf(getData.get().get(i).getmAuthour()) + "\n" +
-                                        "PageCount: " + String.valueOf(getData.get().get(i).getPagecount()) + "\n" +
-                                        "Publisher: " + String.valueOf(getData.get().get(i).getmPublisher() + "\n" +
-                                        "Rating: " + String.valueOf(getData.get().get(i).getmRating()));
+                        ConnectivityManager cm =
+                                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+                        if (networkInfo != null && networkInfo.isConnected()) {
+                            EditText search1 = (EditText) findViewById(R.id.search_text);
+                            String searchString = search1.getText().toString();
+                            FetchData fetch = new FetchData();
+                            AsyncTask<String, Void, ArrayList<Result>> getData = fetch.execute(searchString);
+                            ListView lv = null;
+                            TextView empty = null;
+                            try {
+                                if (getData.get() == null) {
+                                    Toast.makeText(MainActivity.this, "Your search doesn't have any result, please" +
+                                            "enter another search", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    lv = (ListView) findViewById(R.id.list);
+                                    empty = (TextView) findViewById(R.id.empty_text);
+                                    lv.setEmptyView(findViewById(R.id.empty_text));
+                                    String[] authors = new String[getData.get().size()];
+                                    for (int i = 0; i < getData.get().size(); i++) {
+                                        authors[i] = "Name: " + String.valueOf(getData.get().get(i).getmTitle()) + "\n" +
+                                                "Author: " + String.valueOf(getData.get().get(i).getmAuthour()) + "\n" +
+                                                "PageCount: " + String.valueOf(getData.get().get(i).getPagecount()) + "\n" +
+                                                "Publisher: " + String.valueOf(getData.get().get(i).getmPublisher() + "\n" +
+                                                "Rating: " + String.valueOf(getData.get().get(i).getmRating()));
+                                    }
+                                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                                            MainActivity.this,
+                                            R.layout.list_item,
+                                            R.id.text_1,
+                                            authors);
+
+                                    if (arrayAdapter != null && !arrayAdapter.isEmpty())
+                                        lv.setAdapter(arrayAdapter);
+                                    else
+                                        empty.setText("NO BOOKS FOUND!!");
+
+
+                                }
+
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
                             }
-                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                    MainActivity.this,
-                                    R.layout.list_item,
-                                    R.id.text_1,
-                                    authors);
-                            lv.setAdapter(arrayAdapter);
-
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
+                        } else {
+                            Toast.makeText(MainActivity.this, " Please, check internet connection.", Toast.LENGTH_SHORT).show();
+                            ;
                         }
-
-
                     }
-                });
 
+                    ;
+
+                });
+            } else {
+                TextView mEmptyStateTextView = (TextView) findViewById(R.id.empty_text);
+                // Update empty state with no connection error message
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
             }
 
         }
-        else {
-            TextView mEmptyStateTextView=(TextView)findViewById(R.id.empty_text);
-            // Update empty state with no connection error message
-         mEmptyStateTextView.setText(R.string.no_internet_connection);
-        }
     }
-
 }
