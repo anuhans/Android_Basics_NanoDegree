@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NEWS</string>
+    <string name="no_date">NO date</string>
+    <string name="no_data_available">No News To Display</string>
+    <string name="device_not_connected">Please Check Your Connection</string>
+    <string name="refresh">Refresh</string>
+</resources>
