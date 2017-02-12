@@ -14,5 +14,6 @@ public class Contract {
         public static final String TABLE_NAME = "habit";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_HABIT = "habit";
+        public static final String COLUMN_FREQUENCY="frequency";
     }
 }

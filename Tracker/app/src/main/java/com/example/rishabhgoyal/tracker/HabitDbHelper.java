@@ -25,6 +25,7 @@ public class HabitDbHelper extends SQLiteOpenHelper {
                 Contract.Habit.ID + " INTEGER PRIMARY KEY," +
                 Contract.Habit.COLUMN_NAME+ " TEXT UNIQUE NOT NULL, " +
                 Contract.Habit.COLUMN_HABIT + " TEXT NOT NULL, "  +
+                Contract.Habit.COLUMN_FREQUENCY +"INTEGER NOT NULL,"+
                 " );";
         sqLiteDatabase.execSQL(SQL_CREATE_HABIT_TABLE);
     }
@@ -35,13 +36,14 @@ public class HabitDbHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
     // Insert data in the table
-    public boolean insertData(int id, String name, String location, String habit, int date) {
+    public boolean insertData(int id, String name, String location, String habit, int frquency) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Contract.Habit.ID, id);
         contentValues.put(Contract.Habit.COLUMN_NAME, name);
         contentValues.put(Contract.Habit.COLUMN_HABIT, habit);
+        contentValues.put(Contract.Habit.COLUMN_FREQUENCY,frquency);
         db.insert(Contract.Habit.TABLE_NAME, null, contentValues);
         db.close();
         return true;
@@ -64,12 +66,13 @@ public class HabitDbHelper extends SQLiteOpenHelper {
         return context.deleteDatabase(Contract.Habit.TABLE_NAME);
     }
     // Update data in the table
-    public boolean updateData(int id, String name, String location, String habit, int date) {
+    public boolean updateData(int id, String name, String location, String habit, int frequnecy) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Contract.Habit.ID, id);
         contentValues.put(Contract.Habit.COLUMN_NAME, name);
         contentValues.put(Contract.Habit.COLUMN_HABIT, habit);
+        contentValues.put(Contract.Habit.COLUMN_FREQUENCY, frequnecy);
         db.update(Contract.Habit.TABLE_NAME, contentValues, " id = ? ",
                 new String[]{Integer.toString(id)});
         db.close();
